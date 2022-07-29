@@ -1,0 +1,109 @@
+.alert-msg {
+    @apply bg-indigo-100 text-red-600 p-3 mb-2 text-sm font-medium border-l-4
+}
+
+.pagination-link {
+    @apply border border-black text-white text-sm font-medium block py-2 px-4 bg-navyblue border-r-0
+}
+
+.pagination-link-light {
+    @apply border border-gray-400 text-gray-700 text-sm font-medium block py-2 px-4 bg-white border-r-0
+}
+
+.pagination-li:last-child {
+@apply border-r border-r-gray-400
+}
+
+.size {
+ @apply border border-black ml-1.5 px-3 py-2 mt-2 uppercase cursor-pointer rounded bg-black text-white
+}
+
+.heading {
+  @apply  capitalize my-2 text-black text-base
+}
+
+.inputfile {
+ @apply block file:py-2.5 file:px-4 file:rounded file:cursor-pointer file:bg-black
+ file:text-white file:text-sm file:font-medium file:mr-4
+}
+
+.preview-image {
+    @apply w-full max-h-[190px] h-full rounded-md overflow-hidden mt-3
+}
+
+.ql-toolbar.ql-snow {  /*--> ReactQuill Class: !important is for to override previous class of ql-toolbar.ql-snow */
+    @apply border-none bg-black !important
+}
+
+
+.my-container {
+    @apply max-w-screen-xl w-full mx-auto px-6;
+}
+
+.flex-y {
+    @apply flex items-center;
+}
+
+.heading {
+    @apply text-lg capitalize font-medium;
+}
+
+.error {
+    @apply block mt-1.5 text-rose-600 font-medium text-sm;
+}
+
+.account-list {
+    @apply flex items-center px-3 py-3.5 rounded-md;
+}
+
+.account-list-title {
+    @apply block ml-3 font-medium text-sm text-gray-700 capitalize;
+}
+
+/* a.active is NavLink class  */
+a.active { 
+    @apply bg-gray-50;
+}
+
+
+/* Swiper Styles */
+
+.slide {
+    @apply relative;
+}
+
+.slide-img {
+    @apply absolute inset-0 bg-no-repeat bg-cover;
+}
+
+.swiper {
+    width: 100%;
+    height: 82vh;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
