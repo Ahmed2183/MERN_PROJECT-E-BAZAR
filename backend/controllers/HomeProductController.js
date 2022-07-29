@@ -6,13 +6,19 @@ class HomeProducts {
     console.log(name, page);
     const perPage = 12;
     const skiprecord = (page - 1) * perPage;
-    try {
-      const count = await ProductModel.find({ category: name, }).where("stock").gt(0).countDocuments(); // gt means greater then means get stock which is > 0
-      const response = await ProductModel.find({ category: name, }).where("stock").gt(0).skip(skiprecord).limit(perPage).sort({ updatedAt: -1 });
-      console.log(response);
-      return res.status(200).json({ products: response, perPage, count });
-    } catch (error) {
-      console.log(error.message);
+    if (page) {
+      try {
+        const count = await ProductModel.find({ category: name, }).where("stock").gt(0).countDocuments(); // gt means greater then means get stock which is > 0
+        const response = await ProductModel.find({ category: name, }).where("stock").gt(0).skip(skiprecord).limit(perPage).sort({ updatedAt: -1 });
+        console.log(response);
+        return res.status(200).json({ products: response, perPage, count });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    else {
+      const response = await ProductModel.find({ category: name }).where("stock").gt(0).limit(4).sort({ updatedAt: -1 }); //onlys 4 product show on Home Page limit is 4
+      return res.status(200).json({ products: response });
     }
   }
 }
