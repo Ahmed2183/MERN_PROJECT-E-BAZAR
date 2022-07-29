@@ -21,6 +21,6 @@ router.put("/updateproduct", [productvalidation, Authorization.authorized], Prod
 router.delete("/delete/:id", Authorization.authorized, Product.deleteProduct);
 
 //For Category Products
-router.get("/categoryproducts/:name/:page", HomeProduct.categoryProducts);
+router.get("/categoryproducts/:name/:page?", HomeProduct.categoryProducts);  // ? means page is optional
 
 module.exports = router;
