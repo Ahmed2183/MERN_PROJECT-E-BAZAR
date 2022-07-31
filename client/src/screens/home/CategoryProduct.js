@@ -30,7 +30,7 @@ const CategoryProduct = () => {
                             <div className='flex flex-wrap -mx-5'>
                                 {data.products.map((product) => { //Data in array so we use curly brackets with map
                                     return (
-                                        <ProductCard product={product} />
+                                        <ProductCard product={product} key={product._id}/>
                                     )
                                 })}
                             </div>
