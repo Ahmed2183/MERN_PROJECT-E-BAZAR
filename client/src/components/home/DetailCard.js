@@ -1,5 +1,6 @@
 import { useState } from "react";
 import currency from "currency-formatter"
+import { motion } from 'framer-motion';
 import DetailsImage from './DetailsImage';
 import Quantity from './Quantity';
 
@@ -21,7 +22,10 @@ const DetailCard = ({ product }) => {
     console.log("Details", product);
 
     return (
-        <div className='flex flex-wrap -mx-5'>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className='flex flex-wrap -mx-5'>
             <div className='w-full order-2 md:order-1 md:w-6/12 p-5'>  {/* order-1 means show on first, order-2 means show on Second.. */}
                 <div className='flex flex-wrap -mx-1'>
                     <DetailsImage image={product.image1} />
@@ -67,7 +71,7 @@ const DetailCard = ({ product }) => {
                 <h3 className='text-base font-medium capitalize text-black mb-2 mt-3'>Quantity</h3>
                 <div className='flex -mx-3 items-center'>
                     <div className='w-full sm:w-6/12 p-3'>
-                        <Quantity quantity={quantity} increment={increment} decrement={decrement}/>
+                        <Quantity quantity={quantity} increment={increment} decrement={decrement} />
                     </div>
                     <div className='w-full sm:w-6/12 p-3'>
                         <button className='btn btn-navyblue'>Add To Cart</button>
@@ -76,7 +80,7 @@ const DetailCard = ({ product }) => {
                 <h3 className='text-base font-medium capitalize text-black mb-2 mt-3'>Description</h3>
                 <div className="mt-4 leading-[27px]">{product.description}</div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
