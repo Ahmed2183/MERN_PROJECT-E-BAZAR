@@ -16,9 +16,20 @@ const homeProductServices = createApi({
                     }
                 },
             }),
+
+            searchProducts: builder.query({
+                query: (params) => {
+                    return {
+                        url: `/searchproducts/${params.keyword}/${params.page}`,
+                        method: 'GET',
+                    }
+                },
+            }),
+
+
         }
     }
 })
 
-export const { useCategoryProductsQuery } = homeProductServices;
+export const { useCategoryProductsQuery, useSearchProductsQuery } = homeProductServices;
 export default homeProductServices;
