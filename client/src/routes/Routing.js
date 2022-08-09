@@ -17,6 +17,7 @@ import UserRoute from './UserRoute';
 import UserAuthRoute from './UserAuthRoute';
 import CategoryProduct from '../screens/home/CategoryProduct';
 import UserProduct from '../screens/home/Product';
+import SearchProduct from '../screens/home/SearchProduct';
 
 const Routing = () => {
     return (
@@ -27,7 +28,8 @@ const Routing = () => {
                 <Route path='/' element={<Home />} />
                 <Route path='categoryproducts/:name' element={<CategoryProduct />} />
                 <Route path='categoryproducts/:name/:page' element={<CategoryProduct />} />
-                <Route path='product/:name' element={<UserProduct/>}/>
+                <Route path='searchproducts/:keyword/:page' element={<SearchProduct />} />
+                <Route path='product/:name' element={<UserProduct />} />
 
                 <Route element={<UserAuthRoute />}>
                     <Route path='/login' element={<Login />} />
