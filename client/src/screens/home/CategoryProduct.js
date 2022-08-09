@@ -13,7 +13,7 @@ const CategoryProduct = () => {
     // console.log(name, page);
 
     const { data, isFetching } = useCategoryProductsQuery({ name, page: parseInt(page) });
-    console.log(data, isFetching);
+    // console.log(data, isFetching);
 
     return (
         <>
@@ -38,7 +38,7 @@ const CategoryProduct = () => {
                                 page={parseInt(page)}
                                 perPage={data.perPage}
                                 count={data.count}
-                                path={`categoryProducts/${name}`}
+                                path={`categoryproducts/${name}`}
                                 theme="light"
                             />
                         </>
