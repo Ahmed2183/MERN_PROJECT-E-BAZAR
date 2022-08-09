@@ -23,4 +23,7 @@ router.delete("/delete/:id", Authorization.authorized, Product.deleteProduct);
 //For Category Products
 router.get("/categoryproducts/:name/:page?", HomeProduct.categoryProducts);  // ? means page is optional
 
+//For Search Products
+router.get("/searchproducts/:keyword/:page?", HomeProduct.categoryProducts); 
+
 module.exports = router;
