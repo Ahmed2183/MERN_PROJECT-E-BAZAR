@@ -1,19 +1,33 @@
-import React from 'react'
-import { FiSearch } from "react-icons/fi"
+import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { FiSearch } from "react-icons/fi"
 import { motion } from 'framer-motion';
 import { toggleSearchBar } from '../../store/reducers/globalReducer';
 
 const Search = () => {
 
+    const [search, setSearch] = useState(' ')
+    // console.log(state)
+
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { searchBar } = useSelector((state) => state.globalReducer);
+
+    const handleChange = (e) => {
+        setSearch(e.target.value);
+    }
 
     const closeSearch = (e) => {
         const id = e.target.getAttribute("id"); // The getAttribute() method returns the value of an element's attribute. Its JavaScript Function
         // console.log( e.target.getAttribute("id"));
         id === 'search' && dispatch(toggleSearchBar());
+    }
+
+    const searchProducts = () => {
+        navigate(`/searchproducts/${search}/1`);
+        dispatch(toggleSearchBar());
     }
 
     return (
@@ -25,8 +39,9 @@ const Search = () => {
                 <div className="flex -mx-8 justify-center">
                     <div className="w-full sm:w-10/12 md:8/12 lg:w-6/12 px-8 mt-10 relative">
                         <input className='w-full bg-white h-[50px] rounded outline-none pl-5 pr-14'
-                            type="text" name="" id="" placeholder='Search Products' />
-                        <FiSearch className='absolute top-[13px] right-12 text-2xl text-gray-500' />
+                            placeholder="Search Products" type="text" name="" id=""
+                            onChange={handleChange} />
+                        <FiSearch className='absolute top-[13px] right-12 text-2xl text-gray-500 cursor-pointer' onClick={searchProducts} />
                     </div>
                 </div>
             </motion.div>
