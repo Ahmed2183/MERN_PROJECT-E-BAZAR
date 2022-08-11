@@ -1,10 +1,19 @@
 import { useState } from "react";
+import { BsCheck2 } from "react-icons/bs";
 import currency from "currency-formatter"
 import { motion } from 'framer-motion';
 import DetailsImage from './DetailsImage';
 import Quantity from './Quantity';
 
 const DetailCard = ({ product }) => {
+
+    const [sizeState, setSizeState] = useState(
+        product?.sizes?.length > 0 && product.sizes[0].name  //set default value of sizes
+    )
+    const [colorState, setColorState] = useState(
+        product?.colors?.length > 0 && product.colors[0].color //set default value of colors
+    )
+    // console.log(sizeState, colorState);
 
     const [quantity, setQantity] = useState(1);
 
@@ -48,9 +57,11 @@ const DetailCard = ({ product }) => {
                         <h3 className='text-base font-medium capitalize text-black mb-2'>Sizes</h3>
                         <div className='flex flex-wrap -mx-1'>
                             {product.sizes.map((size) => (
-                                <div className='p-2 m-1 border border-gray-300 rounded cursor-pointer hover:bg-navyblue
-                                 hover:text-white transition-all' key={size.name}>
-                                    <span className='text-sm font-bold uppercase'>{size.name}</span>
+                                <div className={`p-2 m-1 border border-gray-300 rounded cursor-pointer hover:bg-navyblue
+                                 hover:text-white transition-all ${sizeState === size.name && "bg-navyblue"}`}
+                                    key={size.name} onClick={() => setSizeState(size.name)}>
+                                    <span className={`text-sm font-bold uppercase 
+                                    ${sizeState === size.name ? "bg-navyblue" : 'text-gray-800'}`}>{size.name}</span>
                                 </div>
                             ))}
                         </div>
@@ -61,8 +72,14 @@ const DetailCard = ({ product }) => {
                         <h3 className='text-base font-medium capitalize text-black mb-2 mt-3'>Colors</h3>
                         <div className='flex flex-wrap'>
                             {product.colors.map((color) => (
-                                <div key={color.color} className="border-gray-300 rounded m-1 p-1 cursor-pointer">
-                                    <span className='min-w-[40px] min-h-[40px] rounded block' style={{ background: color.color }}></span>
+                                <div key={color.color} onClick={() => setColorState(color.color)}
+                                    className="border-gray-300 rounded m-1 p-1 cursor-pointer">
+                                    <span className='min-w-[40px] min-h-[40px] rounded flex items-center justify-center'
+                                        style={{ background: color.color }}>
+                                        {colorState === color.color && (
+                                            <BsCheck2 className="text-white" size={20} />
+                                        )}
+                                    </span>
                                 </div>
                             ))}
                         </div>
