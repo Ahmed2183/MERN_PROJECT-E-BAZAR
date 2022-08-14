@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import DetailsImage from './DetailsImage';
 import Quantity from './Quantity';
 import { addCart } from "../../store/reducers/cartReducer";
+import { discount } from "../../utils/discount";
 
 const DetailCard = ({ product }) => {
 
@@ -32,8 +33,8 @@ const DetailCard = ({ product }) => {
         }
     }
 
-    const discountprice = product.price - product.discount;
-    // console.log("Details", product);
+    const discountprice = discount(product.price, product.discount);  //-->Send product.price and product.discount to discount.js
+    console.log("Details", product);
 
     const addToCart = () => {
         // In below line we create new array with name newProduct, jis mai ham previous data database sa colors,sizes,createdAt and updatedAt show nhi kra ga 
