@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useDispatch } from 'react-redux'
 import { BsCheck2 } from "react-icons/bs";
 import currency from "currency-formatter"
 import { motion } from 'framer-motion';
+import toast, { Toaster } from 'react-hot-toast';
 import DetailsImage from './DetailsImage';
 import Quantity from './Quantity';
+import { addCart } from "../../store/reducers/cartReducer";
 
 const DetailCard = ({ product }) => {
+
+    const dispatch = useDispatch();
 
     const [sizeState, setSizeState] = useState(
         product?.sizes?.length > 0 && product.sizes[0].name  //set default value of sizes
@@ -28,13 +33,36 @@ const DetailCard = ({ product }) => {
     }
 
     const discountprice = product.price - product.discount;
-    console.log("Details", product);
+    // console.log("Details", product);
+
+    const addToCart = () => {
+        // In below line we create new array with name newProduct, jis mai ham previous data database sa colors,sizes,createdAt and updatedAt show nhi kra ga 
+        //bqi sab chza show hogi
+        const { ["colors"]: colors, ["sizes"]: sizes, ["createdAt"]: createdAt, ["updatedAt"]: updatedAt, ...newProduct } = product;
+        newProduct["size"] = sizeState; //-->Only show user selected size
+        newProduct["color"] = colorState; //-->Only show user selected color
+        newProduct["quantity"] = quantity; //-->Only show user selected quantity
+        console.log(newProduct);
+        const cart = localStorage.getItem('cart');  //-->Access cart keyword from localStorage
+        const cartItems = cart ? JSON.parse(cart) : [];
+        const checkItem = cartItems.find(item => item._id === newProduct._id); //-->Dont add duplicate item in Cart
+        if (!checkItem) {
+            dispatch(addCart(newProduct));
+            cartItems.push(newProduct);
+            localStorage.setItem("cart", JSON.stringify(cartItems));
+        }
+        else {
+            toast.error(`${newProduct.title} is already in cart`);
+            return;
+        }
+    }
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className='flex flex-wrap -mx-5'>
+            <Toaster />
             <div className='w-full order-2 md:order-1 md:w-6/12 p-5'>  {/* order-1 means show on first, order-2 means show on Second.. */}
                 <div className='flex flex-wrap -mx-1'>
                     <DetailsImage image={product.image1} />
@@ -91,7 +119,7 @@ const DetailCard = ({ product }) => {
                         <Quantity quantity={quantity} increment={increment} decrement={decrement} />
                     </div>
                     <div className='w-full sm:w-6/12 p-3'>
-                        <button className='btn btn-navyblue'>Add To Cart</button>
+                        <button className='btn btn-navyblue' onClick={addToCart}>Add To Cart</button>
                     </div>
                 </div>
                 <h3 className='text-base font-medium capitalize text-black mb-2 mt-3'>Description</h3>
