@@ -8,7 +8,7 @@ import { useRandomCategoriesQuery } from '../../store/services/categoryServices'
 const Slider = () => {
 
   const { currentData, isFetching } = useRandomCategoriesQuery();
-  console.log(currentData, isFetching)
+  // console.log(currentData, isFetching)
 
   return isFetching ? (
     <div className='my-container h-[70vh] flex items-center justify-center'>
@@ -51,46 +51,3 @@ const Slider = () => {
 };
 
 export default Slider;
-
-
-
-
-
-
-
-
-
-// return (
-//   <>
-//   <Swiper
-//     spaceBetween={30}
-//     centeredSlides={true}
-//     autoplay={{
-//       delay: 2500,
-//       disableOnInteraction: false,
-//     }}
-//     pagination={{
-//       clickable: true,
-//     }}
-//     navigation={true}
-//     modules={[Autoplay, Pagination, Navigation]}
-//     className="mySwiper"
-//   >
-//     <SwiperSlide className='slide'>
-//       <div className="slide-img bg-[url('../public/images/Slider/Slider1.jpg')]"></div>
-//     </SwiperSlide>
-//     <SwiperSlide className='slide'>
-//       <div className="slide-img bg-[url('../public/images/Slider/Slider2.jpg')]"></div>
-//     </SwiperSlide>
-//     <SwiperSlide className='slide'>
-//       <div className="slide-img bg-[url('../public/images/Slider/Slider3.jpg')]"></div>
-//     </SwiperSlide>
-//     <SwiperSlide className='slide'>
-//       <div className="slide-img bg-[url('../public/images/Slider/Slider4.jpg')]"></div>
-//     </SwiperSlide>
-//     <SwiperSlide className='slide'>
-//       <div className="slide-img bg-[url('../public/images/Slider/Slider5.jpg')]"></div>
-//     </SwiperSlide>
-//   </Swiper>
-// </>
-// );
