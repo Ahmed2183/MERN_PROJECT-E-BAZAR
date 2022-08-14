@@ -2,9 +2,10 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import authServices from './services/authServices';
 import categoryServices from './services/categoryServices';
 import productServices from './services/productServices';
+import homeProductServices from './services/homeProductsServices';
 import authReducer from './reducers/authReducer';
 import globalReducer from './reducers/globalReducer';
-import homeProductServices from './services/homeProductsServices';
+import cartReducer from './reducers/cartReducer';
 
 const Store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const Store = configureStore({
     //"authReducer" is key name from authReducer.js
     "authReducer": authReducer,
     "globalReducer": globalReducer,
+    "cartReducer": cartReducer,
   },
 
   //Create middleware, getDefaultMiddleware is function name
