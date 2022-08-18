@@ -13,6 +13,8 @@ const Nav = () => {
     const { userToken, user } = useSelector((state) => state.authReducer);
     // console.log(user.userdata.name)
     const { searchBar } = useSelector((state) => state.globalReducer);
+    const { items, total } = useSelector((state) => state.cartReducer);
+    // console.log(total);
 
 
     return (
@@ -34,7 +36,7 @@ const Nav = () => {
                             <li className='nav-li relative'>
                                 <Link to="/cart">
                                     <BsFillBagCheckFill size={23} />
-                                    <span className='nav-circle'>10</span>
+                                    <span className='nav-circle'>{items}</span>
                                 </Link>
                             </li>
                         </ul>
