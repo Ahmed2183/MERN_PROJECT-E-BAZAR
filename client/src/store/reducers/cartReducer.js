@@ -59,12 +59,22 @@ const cartReducer = createSlice({
                 localStorage.setItem("cart", JSON.stringify(state.cart));
             }
         },
+        removeItem: (state, { payload }) => {
+            const find = state.cart.find((item) => item._id === payload);
+            if (find) {
+                const index = state.cart.indexOf(find);
+                state.items -= find.quantity;
+                state.total -= discount(find.price, find.discount) * find.quantity;
+                state.cart.splice(index, 1);  //-->iss index k baad 1 item remove kro
+                localStorage.setItem("cart", JSON.stringify(state.cart));
+            }
+        },
     }
 })
 
 //Create Hook here
 //export our reducers function its Hook
-export const { addCart, incrementQuantity, decrementQuantity } = cartReducer.actions;
+export const { addCart, incrementQuantity, decrementQuantity, removeItem } = cartReducer.actions;
 
 //export cartReducers 
 export default cartReducer.reducer;
