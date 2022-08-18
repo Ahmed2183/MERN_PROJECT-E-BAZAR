@@ -26,6 +26,9 @@ const Search = () => {
     }
 
     const searchProducts = () => {
+        if (search === " ") {
+            return;
+        }
         navigate(`/searchproducts/${search}/1`);
         dispatch(toggleSearchBar());
     }
