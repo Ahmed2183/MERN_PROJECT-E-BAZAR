@@ -24,7 +24,7 @@ const CategoryProduct = () => {
             <div className="my-container my-10">
                 {isFetching ?
                     <ProductSkeleton />
-                    : data.count > 0 ?
+                    : data?.count > 0 ?
                         <>
                             <p className='text-base font-medium text-gray-700'>{data.count} Products Found in {name} Category</p>
                             <div className='flex flex-wrap -mx-5'>
