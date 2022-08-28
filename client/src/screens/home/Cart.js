@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { BsTrash } from 'react-icons/bs'
 import { motion } from 'framer-motion'
 import currency from "currency-formatter"
@@ -8,14 +9,26 @@ import Nav from '../../components/home/Nav'
 import { discount } from '../../utils/discount'
 import Quantity from '../../components/home/Quantity'
 import { incrementQuantity, decrementQuantity, removeItem } from '../../store/reducers/cartReducer'
-import { Link } from 'react-router-dom'
+import { useSendPaymentMutation } from '../../store/services/paymentServices'
 
 const Cart = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { cart, total } = useSelector((state) => state.cartReducer);
     // console.log(cart);
+    const { userToken } = useSelector((state) => state.authReducer);
+
+    const [doPayment, response] = useSendPaymentMutation();  //->We create doPayment function to call in pay function, use any name instead of doPayment
+    console.log("Payment Response", response);
+
+    useEffect(() => {
+    if(response?.isSuccess){
+        window.location.href = response?.data?.url;  //-->Redirect to response url
+    }
+    }, [response])
+
 
     const increment = (id) => {
         dispatch(incrementQuantity(id));
@@ -43,6 +56,15 @@ const Cart = () => {
                     swal("Your item is safe!");
                 }
             });
+    }
+
+    const pay = () => {
+        if (userToken) {
+            doPayment();
+        }
+        else {
+            navigate('/login');
+        }
     }
 
     return (
@@ -105,7 +127,7 @@ const Cart = () => {
                                 <span className='text-lg font-semibold text-green-600 mr-10'>
                                     {currency.format(total, { code: 'USD' })}
                                 </span>
-                                <Link to='/' className='btn-red text-sm font-medium py-2.5'>CheckOut</Link>
+                                <button className='btn-red text-sm font-medium py-2.5' onClick={pay}>CheckOut</button>
                             </div>
                         </div>
                     </>
