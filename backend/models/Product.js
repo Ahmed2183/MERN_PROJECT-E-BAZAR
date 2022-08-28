@@ -22,7 +22,7 @@ const productSchema = new Schema({
         required: true,
         type: String
     },
-    colors: {  //[Map] -> [] means object and Map means array we have array in object
+    colors: {  //[Map] -> [] means array and Map means object we have object in array 
         type: [Map]
     },
     sizes: {
