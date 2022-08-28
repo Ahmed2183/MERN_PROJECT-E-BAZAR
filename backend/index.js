@@ -5,6 +5,7 @@ const connect = require("./config/db")
 const UserRoute = require("./routes/UserRoute")
 const CategoryRoute = require("./routes/CategoryRoute")
 const ProductRoute = require("./routes/ProductRoute")
+const PaymentRoute = require("./routes/PaymentRoute")
 const app = express();
 
 // console.log(env);
@@ -29,6 +30,8 @@ app.use(UserRoute);
 app.use(CategoryRoute);
 
 app.use(ProductRoute);
+
+app.use(PaymentRoute);
 
 const port = env.PORT || 5000;  //PORT is from envConfig.js
 
