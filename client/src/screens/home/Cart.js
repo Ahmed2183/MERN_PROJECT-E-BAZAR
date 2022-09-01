@@ -18,15 +18,16 @@ const Cart = () => {
 
     const { cart, total } = useSelector((state) => state.cartReducer);
     // console.log(cart);
-    const { userToken } = useSelector((state) => state.authReducer);
+    const { userToken, user } = useSelector((state) => state.authReducer);
+    // console.log(user?.userdata?.id);
 
     const [doPayment, response] = useSendPaymentMutation();  //->We create doPayment function to call in pay function, use any name instead of doPayment
     console.log("Payment Response", response);
 
     useEffect(() => {
-    if(response?.isSuccess){
-        window.location.href = response?.data?.url;  //-->Redirect to response url
-    }
+        if (response?.isSuccess) {
+            window.location.href = response?.data?.url;  //-->Redirect to response url
+        }
     }, [response])
 
 
@@ -60,7 +61,7 @@ const Cart = () => {
 
     const pay = () => {
         if (userToken) {
-            doPayment();
+            doPayment({ cart, id: user?.userdata?.id  });  //-->Send cart data and user id to paymentServices.js
         }
         else {
             navigate('/login');
@@ -127,7 +128,9 @@ const Cart = () => {
                                 <span className='text-lg font-semibold text-green-600 mr-10'>
                                     {currency.format(total, { code: 'USD' })}
                                 </span>
-                                <button className='btn-red text-sm font-medium py-2.5' onClick={pay}>CheckOut</button>
+                                <button className='btn-red text-sm font-medium py-2.5' onClick={pay}>
+                                    {response.isLoading ? 'Loading...' : 'CheckOut'}
+                                </button>
                             </div>
                         </div>
                     </>
