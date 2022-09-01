@@ -24,7 +24,7 @@ app.get("/",(req,res)=>{
     res.json({msg: "Welcome to E-Bazaar"});
 });
 
-//Middlewares,Call our All Routes APIS
+//Middlewares,Call our All Routes APIS 
 app.use(UserRoute); 
 
 app.use(CategoryRoute);
@@ -38,4 +38,5 @@ const port = env.PORT || 5000;  //PORT is from envConfig.js
 
 app.listen(port, () => {
     console.log(`Server is running at port number: ${port}`)
-})
+}) 
+ 
