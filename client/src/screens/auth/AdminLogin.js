@@ -53,7 +53,7 @@ if(response.isSuccess && response?.data?.admin === true)  //If in console respon
         onSubmit={adminLogin}
         >
           <h3 className="mb-4 text-white capitalize font-semibold text-lg">
-            DashBoard Login
+            Admin Login
           </h3>
 
           {/* Calling Errors */}
