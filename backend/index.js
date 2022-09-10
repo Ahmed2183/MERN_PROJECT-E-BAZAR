@@ -17,6 +17,18 @@ connect();
 
 app.use(cors());
 
+/* This Code app.post("/webhook",... taken from shakilkhan github 
+ Remove /api from shakilkhan github code bcz me don't use /api me only use /webhook*/
+/* Use this code before app.use(express.json()); middleware otherwise error and dont use router.post otherwise code not working use app.post */
+app.post(
+    "/webhook",
+    express.json({
+      verify: (req, res, buf) => {
+        req.rawBody = buf.toString();
+      },
+    })
+  );
+
 //Add middleware to access data in express
 app.use(express.json());
 
