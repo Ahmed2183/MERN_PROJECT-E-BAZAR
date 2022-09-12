@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import Nav from '../../components/home/Nav';
 import Header from "../../components/home/Header";
 import AccountList from '../../components/home/AccountList';
@@ -7,6 +8,8 @@ import AccountList from '../../components/home/AccountList';
 const Dashboard = () => {
 
     const { user } = useSelector((state) => state.authReducer);
+    const [params] = useSearchParams();
+    console.log(params.get('session_id')); //-->use single quotation marks otherwise it thought session_id is variable
 
     return (
         <>
@@ -18,13 +21,13 @@ const Dashboard = () => {
                 <div className="my-container mt-[40px]">
                     <div className="flex flex-wrap -mx-6">
                         <div className="w-full md:w-4/12 p-6">
-                           <AccountList/>
+                            <AccountList />
                         </div>
                         <div className="w-full md:w-8/12 p-6">
                             <h1 className="heading">Name</h1>
-                                <span className="block mt-3 capitalize font-medium text-sm">
+                            <span className="block mt-3 capitalize font-medium text-sm">
                                 {user?.userdata?.name}
-                                </span>
+                            </span>
                         </div>
                     </div>
                 </div>
