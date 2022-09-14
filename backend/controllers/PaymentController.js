@@ -1,5 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 const User = require('../models/User')
+const OrderModel = require('../models/Order')
+const ProductModel = require('../models/Product')
 
 /* For Run Stripe in backend folder: stripe listen --forward-to localhost:5000/webhook */
 class PaymentController {
@@ -22,6 +24,7 @@ class PaymentController {
                 size: item.size,
                 color: item.color,
                 quantity: item.quantity,
+                userId: user._id,
             }
         })
 
@@ -115,8 +118,32 @@ class PaymentController {
 
             case 'checkout.session.completed':
                 const data = event.data.object;
-                const customer = await stripe.customers.retrieve(data.customer);
-                console.log("Customer:", customer);
+                let customer = await stripe.customers.retrieve(data.customer);
+                // console.log("Customer:", customer);
+                customer = JSON.parse(customer?.metadata?.cart);
+                customer.forEach(async cust => {
+                    try {
+                        await OrderModel.create({
+                            productId: cust._id, //-->Add cust._id in product model/collection
+                            userId: cust.userId, //-->Add cust.userId in user model/collection
+                            size: cust.size,
+                            color: cust.color,
+                            quantities: cust.quantity,
+                            address: data.customer_details.address
+                        });
+                        const product = await ProductModel.findOne({ _id: cust._id })
+                        if (product) {
+                            let stock = product.stock - cust.quantity;  //-->Checkout ka baad jitni quantity checkout mai hogi utni stock sa minus hojai gi r Product update hojai ga
+                            if (stock < 0) {
+                                stock = 0;
+                            }
+                            await ProductModel.findByIdAndUpdate( cust._id, { stock }, { new: true })
+                        }
+                    } catch (error) {
+                        console.log(error.message);
+                        return response.status(500).json('Server Internal Error');
+                    }
+                })
                 break;
 
             default:
