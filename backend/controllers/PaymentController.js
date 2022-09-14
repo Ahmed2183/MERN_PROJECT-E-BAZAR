@@ -137,7 +137,7 @@ class PaymentController {
                             if (stock < 0) {
                                 stock = 0;
                             }
-                            await ProductModel.findByIdAndUpdate( cust._id, { stock }, { new: true })
+                            await ProductModel.findByIdAndUpdate( cust._id, { stock }, { new: true }) //--> new: true  means update new data/record
                         }
                     } catch (error) {
                         console.log(error.message);
