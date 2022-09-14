@@ -124,8 +124,8 @@ class PaymentController {
                 customer.forEach(async cust => {
                     try {
                         await OrderModel.create({
-                            productId: cust._id, //-->Add cust._id in product model/collection
-                            userId: cust.userId, //-->Add cust.userId in user model/collection
+                            productId: cust._id, //-->In cust._id we have product id from product model/collection
+                            userId: cust.userId, //-->In cust.userId we have user id from user model/collection
                             size: cust.size,
                             color: cust.color,
                             quantities: cust.quantity,

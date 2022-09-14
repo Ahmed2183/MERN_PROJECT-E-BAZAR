@@ -1,8 +1,8 @@
 const { model, Schema, Types } = require('mongoose');
 
 const orderSchema = Schema({
-    productId: { type: Types.ObjectId, ref: 'product' },  //-->This means relation with product model schema/collection means add in product model/collection
-    userId: { type: Types.ObjectId, ref: 'user' }, //-->This means relation with user model schema/collection means add in user model/collection
+    productId: { type: Types.ObjectId, ref: 'product' },  //-->This means relation with product model schema/collection means add product id in order model/collection
+    userId: { type: Types.ObjectId, ref: 'user' }, //-->This means relation with user model schema/collection means add user id in order model/collection
     size: {
         required: false,  //-->This means optional
         type: String
