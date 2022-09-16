@@ -22,7 +22,7 @@ const Cart = () => {
     // console.log(user?.userdata?.id);
 
     const [doPayment, response] = useSendPaymentMutation();  //->We create doPayment function to call in pay function, use any name instead of doPayment
-    console.log("Payment Response", response);
+    // console.log("Payment Response", response);
 
     useEffect(() => {
         if (response?.isSuccess) {
