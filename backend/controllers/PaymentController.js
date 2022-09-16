@@ -137,7 +137,7 @@ class PaymentController {
                             if (stock < 0) {
                                 stock = 0;
                             }
-                            await ProductModel.findByIdAndUpdate( cust._id, { stock }, { new: true }) //--> new: true  means update new data/record and show new record/data
+                            await ProductModel.findByIdAndUpdate(cust._id, { stock }, { new: true }) //--> new: true  means update new data/record and show new record/data
                         }
                     } catch (error) {
                         console.log(error.message);
@@ -152,6 +152,16 @@ class PaymentController {
 
         // Return a 200 response to acknowledge receipt of the event
         response.send();
+    }
+
+    async paymentVerify(req, res) {
+        const { id } = req.params;
+        try {
+            const session = await stripe.checkout.sessions.retrieve(id);
+            return res.status(200).json({ msg: "Payment Verified Successfully", status: session.payment_status })
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
     }
 }
 
