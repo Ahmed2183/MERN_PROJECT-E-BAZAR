@@ -17,12 +17,21 @@ const paymentServices = createApi({
                         body: cart,
                     }
                 }
+            }),
+
+            verifyPayment: builder.query({
+                query: id => {
+                    return {
+                        url: `verify-payment/${id}`,
+                        method: 'GET'
+                    }
+                }
             })
 
         }
     }
 })
 
-export const { useSendPaymentMutation } = paymentServices;
+export const { useSendPaymentMutation, useVerifyPaymentQuery } = paymentServices;
 
 export default paymentServices;
