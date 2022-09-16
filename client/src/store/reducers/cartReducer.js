@@ -69,12 +69,18 @@ const cartReducer = createSlice({
                 localStorage.setItem("cart", JSON.stringify(state.cart));
             }
         },
+        /* For empty cart after payment successfull */
+        emptyCart: (state) => {
+            state.cart = [];
+            state.items = 0;
+            state.total = 0;
+        }
     }
 })
 
 //Create Hook here
 //export our reducers function its Hook
-export const { addCart, incrementQuantity, decrementQuantity, removeItem } = cartReducer.actions;
+export const { addCart, incrementQuantity, decrementQuantity, removeItem, emptyCart } = cartReducer.actions;
 
 //export cartReducers 
 export default cartReducer.reducer;
