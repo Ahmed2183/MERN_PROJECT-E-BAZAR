@@ -21,7 +21,7 @@ const orderServices = createApi({
     endpoints: (builder) => {
         return {
           getOrders: builder.query({
-            query: page => {
+            query: (page) => {
                 return {
                     url: `/orders/${page}`,
                     method: 'GET'
