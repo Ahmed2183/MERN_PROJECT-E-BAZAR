@@ -19,6 +19,7 @@ import CategoryProduct from '../screens/home/CategoryProduct';
 import UserProduct from '../screens/home/Product';
 import SearchProduct from '../screens/home/SearchProduct';
 import Cart from '../screens/home/Cart';
+import Orders from '../screens/dashboard/Orders';
 
 const Routing = () => {
     return (
@@ -31,7 +32,7 @@ const Routing = () => {
                 <Route path='categoryproducts/:name/:page' element={<CategoryProduct />} />
                 <Route path='searchproducts/:keyword/:page' element={<SearchProduct />} />
                 <Route path='product/:name' element={<UserProduct />} />
-                <Route path='cart' element={<Cart/>}/>
+                <Route path='cart' element={<Cart />} />
 
                 <Route element={<UserAuthRoute />}>
                     <Route path='/login' element={<Login />} />
@@ -63,6 +64,9 @@ const Routing = () => {
                     <Route path='updatecategory/:id' element={<PrivateRoute><UpdateCategory /></PrivateRoute>} />
                     {/*The URL is Like: http://localhost:3000/dashboard/createproduct */}
                     <Route path='createproduct' element={<PrivateRoute><CreateProduct /></PrivateRoute>} />
+                    {/*The URL is Like: http://localhost:3000/dashboard/orders */}
+                    <Route path='orders' element={<PrivateRoute><Orders /></PrivateRoute>} />
+                    <Route path='orders/:page' element={<PrivateRoute><Orders /></PrivateRoute>} />
                 </Route>
             </Routes>
         </BrowserRouter>
