@@ -13,3 +13,24 @@
 .td {
     @apply p-4 text-sm text-gray-700;
 }
+
+/* Dont use space in dark and hover property */
+.dashboard-table {
+    @apply w-full text-sm text-left text-gray-500 dark:text-gray-400;
+}
+
+.dashboard-thead {
+    @apply text-xs text-white uppercase bg-navyblue dark:bg-gray-900 dark:text-gray-400;
+}
+
+.dashboard-th {
+    @apply px-6 py-3;
+}
+
+.dashboard-tr {
+    @apply bg-white border-b dark:bg-gray-800 dark:border-gray-700 transition duration-300 ease-in-out hover:bg-gray-200;
+}
+
+.dashboard-td {
+    @apply px-6 py-4;
+}
