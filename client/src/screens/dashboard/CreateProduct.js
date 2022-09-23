@@ -115,7 +115,7 @@ const CreateProduct = () => {
 
     //For Save Product Data
     const [createNewProduct, response] = useCreateProductMutation();
-    console.log('Your Response', response);
+    // console.log('Your Response', response);
 
     const saveProduct = e => {
         e.preventDefault();

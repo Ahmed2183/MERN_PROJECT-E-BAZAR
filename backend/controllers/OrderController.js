@@ -16,7 +16,7 @@ class Orders {
                 .skip(skiprecord)
                 .limit(perPage)
                 .sort({ updatedAt: -1 });
-            console.log(response);
+            // console.log(response);
             return res.status(200).json({ orders: response, perPage, count });
         } catch (error) {
             console.log(error.message);

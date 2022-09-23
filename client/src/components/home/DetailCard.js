@@ -34,7 +34,7 @@ const DetailCard = ({ product }) => {
     }
 
     const discountprice = discount(product.price, product.discount);  //-->Send product.price and product.discount to discount.js
-    console.log("Details", product);
+    // console.log("Details", product);
 
     const addToCart = () => {
         // In below line we create new array with name newProduct, jis mai ham previous data database sa colors,sizes,createdAt and updatedAt show nhi kra ga 
@@ -43,7 +43,7 @@ const DetailCard = ({ product }) => {
         newProduct["size"] = sizeState; //-->Only show user selected size
         newProduct["color"] = colorState; //-->Only show user selected color
         newProduct["quantity"] = quantity; //-->Only show user selected quantity
-        console.log(newProduct);
+        // console.log(newProduct);
         const cart = localStorage.getItem('cart');  //-->Access cart keyword from localStorage
         const cartItems = cart ? JSON.parse(cart) : [];
         const checkItem = cartItems.find(item => item._id === newProduct._id); //-->Dont add duplicate item in Cart
