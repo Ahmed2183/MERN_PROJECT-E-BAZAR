@@ -4,6 +4,7 @@ import categoryServices from './services/categoryServices';
 import productServices from './services/productServices';
 import homeProductServices from './services/homeProductsServices';
 import paymentServices from './services/paymentServices';
+import orderServices from './services/orderServices';
 import authReducer from './reducers/authReducer';
 import globalReducer from './reducers/globalReducer';
 import cartReducer from './reducers/cartReducer';
@@ -18,6 +19,7 @@ const Store = configureStore({
     [productServices.reducerPath]: productServices.reducer,
     [homeProductServices.reducerPath]: homeProductServices.reducer,
     [paymentServices.reducerPath]: paymentServices.reducer,
+    [orderServices.reducerPath]: orderServices.reducer,
 
     //reducers import
     //"authReducer" is key name from authReducer.js
@@ -27,12 +29,13 @@ const Store = configureStore({
   },
 
   //Create middleware, getDefaultMiddleware is function name
-  //This code is for tagTypes,invalidatesTags, providesTags in categoryServices.js
+  //This code is for tagTypes,invalidatesTags, providesTags in filenameServices.js
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([
     categoryServices.middleware,
     productServices.middleware,
     homeProductServices.middleware,
     paymentServices.middleware,
+    orderServices.middleware,
   ])
 
 })
