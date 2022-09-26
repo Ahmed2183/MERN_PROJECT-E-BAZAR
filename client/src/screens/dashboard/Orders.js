@@ -12,7 +12,7 @@ const Orders = () => {
     page = page ? page : 1;  // --> Means if page number ha then page number use kro else page number 1 hoga
 
     const { data, isFetching } = useGetOrdersQuery(page);
-    console.log("Data Orders:", data);
+    // console.log("Data Orders:", data);
 
     return (
         <Wrapper>
@@ -41,6 +41,9 @@ const Orders = () => {
                                         Received
                                     </th>
                                     <th scope="col" className="dashboard-th">
+                                        Delivered
+                                    </th>
+                                    <th scope="col" className="dashboard-th">
                                         Details
                                     </th>
                                 </tr>
@@ -57,10 +60,11 @@ const Orders = () => {
                                                 className="w-[50px] h-[50px]  rounded-full object-cover"
                                             />{" "}
                                         </td>
-                                        <td className="dashboard-td">{order.received ? 'Received' : 'Not Received'}</td>
+                                        <td className="dashboard-td">{order.received ? 'Yes' : 'No'}</td>
+                                        <td className="dashboard-td">{order.status ? 'Yes' : 'No'}</td>
                                         <td className="dashboard-td">
                                             <Link
-                                                to="/dashboard"
+                                                to={`/dashboard/order-details/${order._id}`}
                                                 className="btn-black"
                                             >
                                                 Details
