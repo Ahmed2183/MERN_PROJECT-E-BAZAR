@@ -27,11 +27,21 @@ const orderServices = createApi({
                     method: 'GET'
                 }
             }
-          })
+          }),
+
+         details: builder.query({
+            query: id => {
+                return {
+                    url: `/order-details/${id}`,
+                    method: 'GET'
+                }
+            }
+         }),
+
         }
     }
 })
 
-export const { useGetOrdersQuery } = orderServices;
+export const { useGetOrdersQuery, useDetailsQuery } = orderServices;
 
 export default orderServices;
