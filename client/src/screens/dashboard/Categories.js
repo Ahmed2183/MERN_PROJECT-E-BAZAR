@@ -28,7 +28,7 @@ const {data = [], isFetching} = useGetCategoryQuery(page);
 
 //For Delete Category
 const [removeCategory,response] = useDeleteCategoryMutation(); //-->removeCategory use here
-console.log(response);
+// console.log(response);
 
 const deleteCategory = id => {
   swal({
