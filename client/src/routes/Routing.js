@@ -20,6 +20,7 @@ import UserProduct from '../screens/home/Product';
 import SearchProduct from '../screens/home/SearchProduct';
 import Cart from '../screens/home/Cart';
 import Orders from '../screens/dashboard/Orders';
+import OrderDetails from '../screens/dashboard/OrderDetails';
 
 const Routing = () => {
     return (
@@ -67,6 +68,7 @@ const Routing = () => {
                     {/*The URL is Like: http://localhost:3000/dashboard/orders */}
                     <Route path='orders' element={<PrivateRoute><Orders /></PrivateRoute>} />
                     <Route path='orders/:page' element={<PrivateRoute><Orders /></PrivateRoute>} />
+                    <Route path='order-details/:id' element={<PrivateRoute><OrderDetails /></PrivateRoute>} />
                 </Route>
             </Routes>
         </BrowserRouter>
