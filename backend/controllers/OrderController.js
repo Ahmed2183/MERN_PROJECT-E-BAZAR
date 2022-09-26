@@ -12,7 +12,7 @@ class Orders {
                 /* In 1st populate we show product data and minus(-) sign jiska sth use horha h wo items show nhi krwai ga orders mai */
                 .populate("productId", "-colors -sizes -createdAt -updatedAt -stock -image2 -image3")  //-->productId means orders mai jo productId ha ussi ka data show krwao
                 /* In 2nd populate we show user data and skip some details */
-                .populate("userId", "-password -updatedAt -createdAt -admin") 
+                .populate("userId", "-password -updatedAt -createdAt -admin")
                 .skip(skiprecord)
                 .limit(perPage)
                 .sort({ updatedAt: -1 });
@@ -22,6 +22,20 @@ class Orders {
             console.log(error.message);
         }
     }
+
+    async orderDetails(req, res) {
+        const { id } = req.params;
+        try {
+            const details = await OrderModel.findOne({ _id: id })
+                .populate("productId", "-colors -sizes -createdAt -updatedAt -stock -image2 -image3")
+                .populate("userId", "-password -updatedAt -createdAt -admin")
+            return res.status(200).json({ details });
+        } catch (error) {
+            console.log(error.message);
+            return res.status(500).json({ errors: error });
+        }
+    }
+
 }
 
 module.exports = new Orders();
