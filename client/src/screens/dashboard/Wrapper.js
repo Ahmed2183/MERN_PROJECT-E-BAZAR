@@ -17,15 +17,15 @@ const Wrapper = ({children}) => { //children catch data from where we import use
 
   return (
     <>
-    <div className="bg-navyblue min-h-screen">
+    {/* <div className="bg-navyblue min-h-screen"> */}
       <SideBar sidebar={sidebar} closeSidebar={closeSidebar}/>  {/*-->Send state value to SideBar.js as a props */}
       <AdminNav openSidebar={openSidebar}/> {/*Send to AdminNav.js as a props */}
-      <section className="pt-10 ml-5 sm:ml-64 pr-36">  {/* Section in which Add category button etc */}
-        <div className= "bg-white text-red-600 p-20">
+      <section className="ml-0 sm:ml-36 bg-navyblue min-h-screen pt-11 px-4">  {/* Section in which Add category button etc */}
+        <div className= "bg-white text-red-600 px-4 py-6">
           {children}  {/*-->using props we get data from inside Wrapper tag */}
         </div>
       </section>
-      </div>
+      {/* </div> */}
     </>
   );
 };
