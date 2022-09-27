@@ -36,6 +36,16 @@ class Orders {
         }
     }
 
+    async deliverOrder(req,res) {
+        const { id } = req.params;
+        try {
+            const updateProduct = await OrderModel.findByIdAndUpdate(id, { status: true }, { new: true });
+            return res.status(200).json({ msg: "Product Has Been Sent To Customer" });
+        } catch (error) {
+            return res.status(500).json({ errors: error.message });
+        }
+    }
+
 }
 
 module.exports = new Orders();
