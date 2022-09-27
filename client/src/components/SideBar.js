@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { logout } from "../store/reducers/authReducer";
+import Clock from "./Clock";
 
 const SideBar = ({ sidebar, closeSidebar }) => {  //sidebar,closeSidebar get values from Wrapper.js
 
@@ -12,7 +13,7 @@ const SideBar = ({ sidebar, closeSidebar }) => {  //sidebar,closeSidebar get val
 
   return (
     <div>
-      <div className={`fixed top-0 ${sidebar} sm:left-0 w-58 h-screen bg-black 
+      <div className={`fixed top-0 ${sidebar} sm:left-0 w-58 h-screen bg-black z-10
        transition-all`}> {/* sm: means when screen on small size ,transition-all for animated */}
         <i className="bi bi-x-lg absolute top-4 right-4 sm:hidden block
          cursor-pointer text-lg" onClick={closeSidebar}></i> {/*For Close icon*/}
@@ -46,12 +47,9 @@ const SideBar = ({ sidebar, closeSidebar }) => {  //sidebar,closeSidebar get val
               Categories
             </Link>
           </li>
-          <li className="px-4 py-3 cursor-pointer transition-all text-white flex items-center hover:bg-teal-600">
-            <i className="bi bi-box-arrow-right mr-2 inline-block text-lg"></i>
-            <Link to="/dashboard/products" className="text-base capitalize"
-              onClick={adminlogout}>
-              Logout
-            </Link>
+          <li className="px-4 py-3 cursor-pointer transition-all text-white flex items-center hover:bg-teal-600 absolute bottom-0">
+            <i className="bi bi-clock mr-2 inline-block text-lg"></i>
+            <Clock />
           </li>
         </ul>
       </div>
