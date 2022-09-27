@@ -57,7 +57,7 @@ const Orders = () => {
                                             <img
                                                 src={`/images/${order.productId.image1}`}
                                                 alt="image name" // only show image1
-                                                className="w-[50px] h-[50px]  rounded-full object-cover"
+                                                className="w-[35px] h-[35px] md:w-[50px] md:h-[50px] rounded-full object-cover"
                                             />{" "}
                                         </td>
                                         <td className="dashboard-td">{order.received ? 'Yes' : 'No'}</td>
