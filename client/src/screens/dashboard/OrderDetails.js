@@ -1,41 +1,59 @@
 import React, { useRef } from 'react';
 import ReactToPrint from 'react-to-print';
 import { HiPrinter } from 'react-icons/hi'
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import currency from "currency-formatter"
 import ScreenHeader from '../../components/ScreenHeader';
 import Wrapper from './Wrapper';
 import Spinner from '../../components/Spinner'
-import { useDetailsQuery } from '../../store/services/orderServices';
+import { useDetailsQuery, useDeliverOrderMutation } from '../../store/services/orderServices';
 import { discount } from "../../utils/discount"
 
 const OrderDetails = () => {
 
     const { id } = useParams();
+    const navigate = useNavigate();
     const componentRef = useRef();  //-->use in <ReactToPrint> tag
+
     const { data, isFetching } = useDetailsQuery(id);
     const { details } = data ?? {};  //--->Destructure data property 
     console.log(details);
+
     const total = discount(details?.productId.price, details?.productId?.discount) * details?.quantities;
+
+    const [sentUserOrder, response] = useDeliverOrderMutation();
+
+    const sentOrder = () => {
+        sentUserOrder(details?._id);
+    }
 
     return (
         <Wrapper>
             <ScreenHeader>
-                <div className='flex items-center justify-between'>
-                    <Link to="/dashboard/orders" className="btn-navyblue">
-                        <i className="bi bi-arrow-left-circle mr-1 inline-block text-lg px-1 py-1 cursor-pointer transition-all"></i>
-                        <span className='mr-1'>Order Details</span>
-                    </Link>
-                    <span>
-                        <ReactToPrint
-                            trigger={() => (
-                                <button className='flex items-center btn-red mr-1 py-2 px-4'>
-                                    <HiPrinter className='mr-1' /> <span> Print this out!</span>
+                <div className='flex justify-between'>
+                    <button className='btn-navyblue mr-1 py-2 px-4' onClick={() => navigate('/dashboard/orders')}>
+                        <i className="bi bi-arrow-left-circle mr-1 inline-block text-lg cursor-pointer transition-all"></i>
+                        <span className='mr-1 pt-1'>Order Details</span>
+                    </button>
+                    <div className='flex items-center justify-around'>
+                        <span>
+                            {!details?.status && (
+                                <button className='btn-yellow mr-1 py-2 px-4' onClick={sentOrder} >
+                                    { response?.isLoading ? 'Loading....' : 'Delivered Order' }
                                 </button>
                             )}
-                            content={() => componentRef.current}
-                        />
-                    </span>
+                        </span>
+                        <span>
+                            <ReactToPrint
+                                trigger={() => (
+                                    <button className='flex items-center btn-red mr-1 py-2 px-4'>
+                                        <HiPrinter className='mr-1' /> <span> Print this out!</span>
+                                    </button>
+                                )}
+                                content={() => componentRef.current}
+                            />
+                        </span>
+                    </div>
                 </div>
             </ScreenHeader>
             {!isFetching ?
