@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react';
+import ReactToPrint from 'react-to-print';
+import { HiPrinter } from 'react-icons/hi'
 import { Link, useParams } from "react-router-dom"
 import currency from "currency-formatter"
 import ScreenHeader from '../../components/ScreenHeader';
@@ -10,6 +12,7 @@ import { discount } from "../../utils/discount"
 const OrderDetails = () => {
 
     const { id } = useParams();
+    const componentRef = useRef();  //-->use in <ReactToPrint> tag
     const { data, isFetching } = useDetailsQuery(id);
     const { details } = data ?? {};  //--->Destructure data property 
     console.log(details);
@@ -18,20 +21,32 @@ const OrderDetails = () => {
     return (
         <Wrapper>
             <ScreenHeader>
-                <Link to="/dashboard/orders" className="btn-navyblue">
-                    <i className="bi bi-arrow-left-circle mr-1 inline-block text-lg px-1 py-1 cursor-pointer transition-all"></i>
-                    Order List
-                </Link>
+                <div className='flex items-center justify-between'>
+                    <Link to="/dashboard/orders" className="btn-navyblue">
+                        <i className="bi bi-arrow-left-circle mr-1 inline-block text-lg px-1 py-1 cursor-pointer transition-all"></i>
+                        <span className='mr-1'>Order Details</span>
+                    </Link>
+                    <span>
+                        <ReactToPrint
+                            trigger={() => (
+                                <button className='flex items-center btn-red mr-1 py-2 px-4'>
+                                    <HiPrinter className='mr-1' /> <span> Print this out!</span>
+                                </button>
+                            )}
+                            content={() => componentRef.current}
+                        />
+                    </span>
+                </div>
             </ScreenHeader>
             {!isFetching ?
-                <>
-                    <h3 className='capitalize text-black font-bold'> Order Number
+                <div ref={componentRef}>  {/* --->This means we will only print that are inside that div. ref to <ReactToPrint> tag */}
+                    <h3 className='capitalize text-black font-bold'> Order Number:
                         <span className='text-lg text-gray-500 ml-4'>#{details?._id}</span>
                     </h3>
                     <div className='flex flex-wrap -mx-5'>
                         <div className='w-full md:w-8/12 p-5'>
                             <div>
-                                <table className='dashboard-table'>
+                                <table className='dashboard-table rounded-none md:rounded-md'>
                                     <thead>
                                         <tr className='dashboard-tr'>
                                             <th className='dashboard-th'>Image</th>
@@ -60,13 +75,17 @@ const OrderDetails = () => {
                             </div>
                         </div>
                         <div className='w-full md:w-4/12 p-5'>
-                            <div className='bg-gray-900 p-4 rounded-md'>
+                            <div className='bg-gray-900 p-4 rounded-none md:rounded-md'>
                                 <div className='border-b pb-3 border-b-white'>
-                                    <h4 className='capitalize text-base text-white'>Customer Name</h4>
+                                    <h4 className='capitalize text-base text-yellow-700 font-bold'>Customer Name</h4>
                                     <span className='text-white text-base font-medium capitalize mt-2'>{details?.userId?.name}</span>
                                 </div>
+                                <div className='border-b pb-3 border-b-white'>
+                                    <h4 className='capitalize text-base text-yellow-700 font-bold mt-2'>Product Name</h4>
+                                    <span className='text-white text-base font-medium capitalize mt-2'>{details?.productId?.title}</span>
+                                </div>
                                 <div>
-                                    <h4 className='capitalize text-base text-white mt-2'>Shipping Address</h4>
+                                    <h4 className='capitalize text-base text-yellow-700 font-bold mt-2'>Shipping Address</h4>
                                     <div className='mt-2'>
                                         <span className='text-white capitalize block'>{details?.address?.city}</span>
                                         <span className='text-white capitalize block'>{details?.address?.line1}</span>
@@ -77,7 +96,7 @@ const OrderDetails = () => {
                             </div>
                         </div>
                     </div>
-                </>
+                </div>
                 : <Spinner />}
         </Wrapper>
     )
