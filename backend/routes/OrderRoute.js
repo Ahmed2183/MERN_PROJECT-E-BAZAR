@@ -7,4 +7,6 @@ router.get('/orders/:page', Authorization.authorized, Orders.getOrders);
 
 router.get('/order-details/:id', Authorization.authorized, Orders.orderDetails);
 
+router.put('/order-deliver/:id', Authorization.authorized, Orders.deliverOrder)
+
 module.exports = router;
