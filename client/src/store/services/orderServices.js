@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const orderServices = createApi({
     reducerPath: 'orders',
+    tagTypes: 'orders',
     baseQuery: fetchBaseQuery({
         baseUrl: 'http://localhost:5000',
 
@@ -20,28 +21,40 @@ const orderServices = createApi({
 
     endpoints: (builder) => {
         return {
-          getOrders: builder.query({
-            query: (page) => {
-                return {
-                    url: `/orders/${page}`,
-                    method: 'GET'
-                }
-            }
-          }),
+            getOrders: builder.query({
+                query: (page) => {
+                    return {
+                        url: `/orders/${page}`,
+                        method: 'GET'
+                    }
+                },
+                providesTags: ['orders']  //-->To refetch data again
+            }),
 
-         details: builder.query({
-            query: id => {
-                return {
-                    url: `/order-details/${id}`,
-                    method: 'GET'
-                }
-            }
-         }),
+            details: builder.query({
+                query: id => {
+                    return {
+                        url: `/order-details/${id}`,
+                        method: 'GET'
+                    }
+                },
+                providesTags: ['orders'] //-->To refetch data again
+            }),
+
+            deliverOrder: builder.mutation({
+                query: id => {
+                    return {
+                        url: `/order-deliver/${id}`,
+                        method: 'PUT'
+                    }
+                },
+                invalidatesTags: ['orders'] //-->To refetch data again
+            }),
 
         }
     }
 })
 
-export const { useGetOrdersQuery, useDetailsQuery } = orderServices;
+export const { useGetOrdersQuery, useDetailsQuery, useDeliverOrderMutation } = orderServices;
 
 export default orderServices;
