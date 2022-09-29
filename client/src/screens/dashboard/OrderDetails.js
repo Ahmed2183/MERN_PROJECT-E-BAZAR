@@ -17,7 +17,7 @@ const OrderDetails = () => {
 
     const { data, isFetching } = useDetailsQuery(id);
     const { details } = data ?? {};  //--->Destructure data property 
-    console.log(details);
+    // console.log(details);
 
     const total = discount(details?.productId.price, details?.productId?.discount) * details?.quantities;
 
