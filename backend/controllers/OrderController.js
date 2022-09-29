@@ -3,12 +3,13 @@ const OrderModel = require("../models/Order");
 
 class Orders {
     async getOrders(req, res) {
-        const { page } = req.params;
+        const query = req.query;
         const perPage = 5;
-        const skiprecord = (page - 1) * perPage;
+        const skiprecord = (query.page - 1) * perPage;
+        const option = query.userId ? { userId: query.userId } : {};
         try {
-            const count = await OrderModel.find({}).countDocuments();
-            const response = await OrderModel.find({})
+            const count = await OrderModel.find(option).countDocuments();
+            const response = await OrderModel.find(option)
                 /* In 1st populate we show product data and minus(-) sign jiska sth use horha h wo items show nhi krwai ga orders mai */
                 .populate("productId", "-colors -sizes -createdAt -updatedAt -stock -image2 -image3")  //-->productId means orders mai jo productId ha ussi ka data show krwao
                 /* In 2nd populate we show user data and skip some details */
