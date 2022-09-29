@@ -21,6 +21,7 @@ import SearchProduct from '../screens/home/SearchProduct';
 import Cart from '../screens/home/Cart';
 import Orders from '../screens/dashboard/Orders';
 import OrderDetails from '../screens/dashboard/OrderDetails';
+import UserOrders from '../screens/users/UserOrders';
 
 const Routing = () => {
     return (
@@ -42,6 +43,8 @@ const Routing = () => {
                 {/* In UserRoute.js Outlet means jo bi <Outlet/> route mai children ha usaa load kro, Here <UserRoute/> is our Outlet Route */}
                 <Route element={<UserRoute />}>
                     <Route path='/user' element={<Dashboard />} />
+                    <Route path='/orders' element={<UserOrders />} />
+                    <Route path='/orders/:page' element={<UserOrders />} />
                 </Route>
 
                 {/* Admin Routes */}
