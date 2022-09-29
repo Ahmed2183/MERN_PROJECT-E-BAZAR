@@ -10,7 +10,6 @@ router.post('/create-checkout-session', Authorization.authorized, Payment.paymen
 /* This Route Is From Listen to Stripe events page in Stripe, But i copy this code from github of shakilkhan bcz stripe code is not working  */
 router.post(
     "/webhook",
-    Authorization.authorized,
     express.raw({ type: "application/json" }),
     Payment.checkOutSession
 );
