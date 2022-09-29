@@ -37,7 +37,7 @@ const OrderDetails = () => {
                     </button>
                     <div className='flex items-center justify-around'>
                         <span>
-                            {!details?.status && (
+                            {!isFetching && !details?.status && (
                                 <button className='btn-yellow mr-1 py-2 px-4' onClick={sentOrder} >
                                     { response?.isLoading ? 'Loading....' : 'Delivered Order' }
                                 </button>
