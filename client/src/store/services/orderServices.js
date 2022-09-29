@@ -24,7 +24,7 @@ const orderServices = createApi({
             getOrders: builder.query({
                 query: (page) => {
                     return {
-                        url: `/orders/${page}`,
+                        url: `/orders?page=${page}`,
                         method: 'GET'
                     }
                 },
