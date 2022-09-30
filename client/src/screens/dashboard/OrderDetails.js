@@ -39,7 +39,7 @@ const OrderDetails = () => {
                         <span>
                             {!isFetching && !details?.status && (
                                 <button className='btn-yellow mr-1 py-2 px-4' onClick={sentOrder} >
-                                    { response?.isLoading ? 'Loading....' : 'Delivered Order' }
+                                    {response?.isLoading ? 'Loading....' : 'Delivered Order'}
                                 </button>
                             )}
                         </span>
@@ -70,6 +70,8 @@ const OrderDetails = () => {
                                             <th className='dashboard-th'>Image</th>
                                             <th className='dashboard-th'>Quantities</th>
                                             <th className='dashboard-th'>Price</th>
+                                            <th className='dashboard-th'>Size</th>
+                                            <th className='dashboard-th'>Color</th>
                                             <th className='dashboard-th'>Total</th>
                                         </tr>
                                     </thead>
@@ -85,6 +87,10 @@ const OrderDetails = () => {
                                             <td className="dashboard-td">{details?.quantities}</td>
                                             <td className="dashboard-td">
                                                 {currency.format(discount(details?.productId?.price, details?.productId?.discount), { code: "USD" })}
+                                            </td>
+                                            <td className="dashboard-td">{details?.size ? details?.size : 'No Size'}</td>
+                                            <td className="dashboard-td">
+                                                <span className='block w-[15px] h-[15px] rounded-full' style={{ background: details?.color }}></span>
                                             </td>
                                             <td className="dashboard-td">{currency.format(total, { code: "USD" })}</td>
                                         </tr>
