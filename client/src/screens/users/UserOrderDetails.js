@@ -50,6 +50,10 @@ const UserOrderDetails = () => {
                                             <h4 className='capitalize text-base font-normal text-gray-500'>Product Name:</h4>
                                             <span className='ml-2 font-medium text-black capitalize'>{data?.details?.productId?.title}</span>
                                         </div>
+                                        <div className='flex mt-1'>
+                                            <h4 className='capitalize text-base font-normal text-gray-500'>Order Received:</h4>
+                                            <span className='ml-2 font-medium text-black capitalize'>{data?.details?.received ? 'Yes' : 'No'}</span>
+                                        </div>
                                         <div className='overflow-x-auto mt-4'>
                                             <table className='w-full'>
                                                 <thead>
