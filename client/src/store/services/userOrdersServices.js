@@ -40,10 +40,20 @@ const userOrdersServices = createApi({
                 },
                 providesTags: ['orders'] //-->To refetch data again
             }),
+
+            receivedOrder: builder.mutation({
+                query: id => {
+                    return {
+                        url: `/order-update?id=${id}&status=received`,
+                        method: 'PUT'
+                    }
+                },
+                invalidatesTags: ['orders'] //-->To refetch data again
+            }),
         }
     }
 })
 
-export const { useGetOrdersQuery, useDetailsQuery } = userOrdersServices;
+export const { useGetOrdersQuery, useDetailsQuery, useReceivedOrderMutation } = userOrdersServices;
 
 export default userOrdersServices;
