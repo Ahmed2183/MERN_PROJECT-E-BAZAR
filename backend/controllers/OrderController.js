@@ -37,16 +37,23 @@ class Orders {
         }
     }
 
-    async deliverOrder(req,res) {
-        const { id } = req.params;
+    async updateOrder(req, res) {
+        const { id, status } = req.query;
+        let option = {};
+        if (status === "delivered") {
+            option = { status: true };
+        }
+        else if (status === "received") {
+            option = { received: true };
+        }
         try {
-            const updateProduct = await OrderModel.findByIdAndUpdate(id, { status: true }, { new: true });
-            return res.status(200).json({ msg: "Product Has Been Sent To Customer" });
+            const updateProduct = await OrderModel.findByIdAndUpdate(id, option, { new: true });
+            return res.status(200).json({
+                msg: status === 'delivered' ? 'Order Has Been Delivered' : status === 'received' && 'Order Received'});
         } catch (error) {
             return res.status(500).json({ errors: error.message });
         }
     }
-
 }
 
 module.exports = new Orders();
