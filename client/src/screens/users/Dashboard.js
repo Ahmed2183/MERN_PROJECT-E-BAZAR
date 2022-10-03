@@ -13,7 +13,7 @@ const Dashboard = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [params] = useSearchParams();
+    const [params] = useSearchParams();  //-->Get id from url
 
     const { user } = useSelector((state) => state.authReducer);
 
