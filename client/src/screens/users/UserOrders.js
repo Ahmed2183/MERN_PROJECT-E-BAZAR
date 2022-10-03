@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom"
 import Nav from '../../components/home/Nav';
 import Header from "../../components/home/Header";
 import AccountList from '../../components/home/AccountList';
-import { useGetOrdersQuery } from '../../store/services/userOrdersServices';
+import { useGetOrdersQuery, useReceivedOrderMutation } from '../../store/services/userOrdersServices';
 import Spinner from '../../components/Spinner'
 import currency from "currency-formatter"
 import { discount } from "../../utils/discount";
@@ -21,6 +21,12 @@ const UserOrders = () => {
 
     const { data, isFetching } = useGetOrdersQuery({ page, userId: user?.userdata?.id });
     console.log(data)
+
+    const [updateOrder] = useReceivedOrderMutation();
+
+    const orderReceived = (id) => {
+        updateOrder(id);
+    }
 
     return (
         <>
@@ -44,11 +50,9 @@ const UserOrders = () => {
                                                 <tr className='thead-tr'>
                                                     <th className='th'>Image</th>
                                                     <th className='th'>Name</th>
-                                                    <th className='th'>Color</th>
-                                                    <th className='th'>Price</th>
-                                                    <th className='th'>Quantities</th>
                                                     <th className='th'>Total</th>
                                                     <th className='th'>Details</th>
+                                                    <th className='th'>Received</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -61,17 +65,17 @@ const UserOrders = () => {
                                                                 <img src={`/images/${item.productId.image1}`} alt={item.productId.title} className='w-12 h-12 object-cover rounded-full' />
                                                             </td>
                                                             <td className='td font-medium'>{item.productId.title}</td>
-                                                            <td className='td'>
-                                                                <span className='block w-[15px] h-[15px] rounded-full' style={{ backgroundColor: item.color }}></span>
-                                                            </td>
-                                                            <td className='td font-bold text-black'>{currency.format(discount(item.productId.price, item.productId.discount),
-                                                                { code: "USD" })}</td>
-                                                            <td className='td font-semibold'>
-                                                                {item.quantities}
-                                                            </td>
                                                             <td className='td font-bold'>{total}</td>
                                                             <td className='td'>
                                                                 <Link to={`/user-order-details/${item._id}`} className='btn-yellow'>Details</Link>
+                                                            </td>
+                                                            <td className='td'>
+                                                                {item?.received ?
+                                                                    <span className='capitalize font-medium text-green-500'>Received</span>
+                                                                    : <button className='btn-blue' onClick={() => orderReceived(item?._id)}
+                                                                        disabled={item?.status === false}>
+                                                                        {item?.status === true ? 'Received?' : " No Deliver"}</button>
+                                                                }
                                                             </td>
                                                         </tr>
                                                     )
