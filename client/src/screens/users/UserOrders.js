@@ -70,11 +70,10 @@ const UserOrders = () => {
                                                                 <Link to={`/user-order-details/${item._id}`} className='btn-yellow'>Details</Link>
                                                             </td>
                                                             <td className='td'>
-                                                                {item?.received ?
+                                                                {item?.status ? item?.received ?
                                                                     <span className='capitalize font-medium text-green-500'>Received</span>
-                                                                    : <button className='btn-blue' onClick={() => orderReceived(item?._id)}
-                                                                        disabled={item?.status === false}>
-                                                                        {item?.status === true ? 'Received?' : " No Deliver"}</button>
+                                                                    : <button className='btn-blue' onClick={() => orderReceived(item?._id)}>Received?</button>
+                                                                    : <span className='capitalize font-medium text-red-500'>Under Process</span>
                                                                 }
                                                             </td>
                                                         </tr>
@@ -90,7 +89,10 @@ const UserOrders = () => {
                                         path={`orders`}
                                         theme="light"
                                     />
-                                </> : 'No Orders' : <Spinner />}
+                                </>
+                                : <div className='bg-indigo-50 border border-indigo-100 p-4 rounded-md text-sm font-medium text-indigo-800'>No Orders</div>
+                                : <Spinner />
+                            }
                         </div>
                     </div>
                 </div>
