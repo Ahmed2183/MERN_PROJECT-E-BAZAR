@@ -3,6 +3,7 @@ import ReactToPrint from 'react-to-print';
 import { HiPrinter } from 'react-icons/hi'
 import { Link, useParams, useNavigate } from "react-router-dom"
 import currency from "currency-formatter"
+import moment from 'moment';
 import ScreenHeader from '../../components/ScreenHeader';
 import Wrapper from './Wrapper';
 import Spinner from '../../components/Spinner'
@@ -61,6 +62,14 @@ const OrderDetails = () => {
                     <h3 className='capitalize text-black font-bold'> Order Number:
                         <span className='text-lg text-gray-500 ml-4'>#{details?._id}</span>
                     </h3>
+                    <h3 className='capitalize text-black font-bold mt-2'> Order Date:
+                        <span className='text-lg text-gray-500 ml-4'>{moment(details?.createdAt).format("dddd, MMMM Do YYYY")}</span>
+                    </h3>
+                    {details?.received &&
+                        <h3 className='capitalize text-black font-bold mt-2'> Received Date:
+                            <span className='text-lg text-gray-500 ml-4'>{moment(details?.updatedAt).format("dddd, MMMM Do YYYY")}</span>
+                        </h3>
+                    }
                     <div className='flex flex-wrap -mx-5'>
                         <div className='w-full md:w-8/12 p-5'>
                             <div>
