@@ -16,7 +16,7 @@ class Orders {
                 .populate("userId", "-password -updatedAt -createdAt -admin")
                 .skip(skiprecord)
                 .limit(perPage)
-                .sort({ updatedAt: -1 });
+                .sort({ createdAt: -1 });  //-->Jis bi order mai jo b changes hngi wo sab sa phlea list mai show hoga e.g received hona deliver hona eassi changes
             // console.log(response);
             return res.status(200).json({ orders: response, perPage, count });
         } catch (error) {
@@ -49,7 +49,8 @@ class Orders {
         try {
             const updateProduct = await OrderModel.findByIdAndUpdate(id, option, { new: true });
             return res.status(200).json({
-                msg: status === 'delivered' ? 'Order Has Been Delivered' : status === 'received' && 'Order Received'});
+                msg: status === 'delivered' ? 'Order Has Been Delivered' : status === 'received' && 'Order Received'
+            });
         } catch (error) {
             return res.status(500).json({ errors: error.message });
         }
