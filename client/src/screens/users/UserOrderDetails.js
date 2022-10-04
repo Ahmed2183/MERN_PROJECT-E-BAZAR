@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import currency from "currency-formatter"
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
+import moment from 'moment';
 import Nav from '../../components/home/Nav';
 import Header from "../../components/home/Header";
 import AccountList from '../../components/home/AccountList';
@@ -54,6 +55,16 @@ const UserOrderDetails = () => {
                                             <h4 className='capitalize text-base font-normal text-gray-500'>Order Received:</h4>
                                             <span className='ml-2 font-medium text-black capitalize'>{data?.details?.received ? 'Yes' : 'No'}</span>
                                         </div>
+                                        <div className='flex mt-1'>
+                                            <h4 className='capitalize text-base font-normal text-gray-500'>Order Date:</h4>
+                                            <span className='ml-2 font-medium text-black capitalize'>{moment(data?.details?.createdAt).format("dddd, MMMM Do YYYY")}</span>
+                                        </div>
+                                        {data?.details?.received &&
+                                            <div className='flex mt-1'>
+                                                <h4 className='capitalize text-base font-normal text-gray-500'>Received Date:</h4>
+                                                <span className='ml-2 font-medium text-black capitalize'>{moment(data?.details?.updatedAt).format("dddd, MMMM Do YYYY")}</span>
+                                            </div>
+                                        }
                                         <div className='overflow-x-auto mt-4'>
                                             <table className='w-full'>
                                                 <thead>
