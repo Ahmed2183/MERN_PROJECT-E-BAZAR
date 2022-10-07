@@ -1,4 +1,5 @@
-const {model, Schema} = require('mongoose');
+const { default: mongoose } = require('mongoose');
+const { model, Schema } = require('mongoose');
 
 const productSchema = new Schema({
 
@@ -44,6 +45,8 @@ const productSchema = new Schema({
         required: true,
         type: String
     },
-},{timestamps: true}
+    // We take reviews field in array [] bcz eik product mai multiple reviews hoskaty hai, We also import Types on above in mongoose
+    reviews: [{ type: mongoose.Types.ObjectId, ref: 'review' }],  //-->This means relation with review model schema/collection means add review id in product model/collection, check review name in Review model
+}, { timestamps: true }
 );
-module.exports = model('product',productSchema);
+module.exports = model('product', productSchema);
