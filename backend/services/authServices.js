@@ -19,5 +19,5 @@ module.exports.createToken = (userdata) => {
 
 //For Compare Password
 module.exports.comparePassword = async (password, dbpassword) => {
-return await await bcrypt.compare(password,dbpassword);
+return await bcrypt.compare(password,dbpassword);
 }
