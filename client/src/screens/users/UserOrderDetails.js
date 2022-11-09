@@ -10,6 +10,7 @@ import Spinner from '../../components/Spinner';
 import { discount } from '../../utils/discount';
 import ReviewForm from '../../components/ReviewForm';
 import { useState } from 'react';
+import DetailsList from '../../components/DetailsList';
 
 const UserOrderDetails = () => {
 
@@ -46,38 +47,23 @@ const UserOrderDetails = () => {
                                 <span className='ml-3'>Details</span>
                             </h1>
                             {!isFetching ?
-                                <div className='flex flex-col md:flex-row flex-wrap mt-2'>
+                                <div className='flex flex-col md:flex-row flex-wrap my-5'>
                                     <div className='w-[130px] md:w-[160px] h-[130px] md:h-[160px] overflow-hidden'>
                                         <img src={`/images/${data?.details?.productId?.image1}`} alt=""
                                             className='w-full h-full object-cover rounded-md' />
                                     </div>
                                     <div className='flex-1 my-4 md:my-0 ml-4'>
-                                        <div className='flex'>
-                                            <h4 className='capitalize text-base font-normal text-gray-500'>Order Number:</h4>
-                                            <span className='ml-2 font-medium text-black'>{data?.details?._id}</span>
-                                        </div>
-                                        <div className='flex mt-1'>
-                                            <h4 className='capitalize text-base font-normal text-gray-500'>Product Name:</h4>
-                                            <span className='ml-2 font-medium text-black capitalize'>{data?.details?.productId?.title}</span>
-                                        </div>
-                                        <div className='flex mt-1'>
-                                            <h4 className='capitalize text-base font-normal text-gray-500'>Order Received:</h4>
-                                            <span className='ml-2 font-medium text-black capitalize'>{data?.details?.received ? 'Yes' : 'No'}</span>
-                                        </div>
-                                        <div className='flex mt-1'>
-                                            <h4 className='capitalize text-base font-normal text-gray-500'>Order Date:</h4>
-                                            <span className='ml-2 font-medium text-black capitalize'>{moment(data?.details?.createdAt).format("dddd, MMMM Do YYYY")}</span>
-                                        </div>
+                                        <DetailsList label="Order Number" data={data?.details?._id} />
+                                        <DetailsList label="Product Name" data={data?.details?.productId?.title} />
+                                        <DetailsList label="Order Received" data={data?.details?.received ? 'Yes' : 'No'} />
+                                        <DetailsList label="Order Date" data={moment(data?.details?.createdAt).format("dddd, MMMM Do YYYY")} />
                                         {data?.details?.received &&
-                                            <div className='flex mt-1'>
-                                                <h4 className='capitalize text-base font-normal text-gray-500'>Received Date:</h4>
-                                                <span className='ml-2 font-medium text-black capitalize'>{moment(data?.details?.updatedAt).format("dddd, MMMM Do YYYY")}</span>
-                                            </div>
+                                            <DetailsList label="Received Date" data={moment(data?.details?.updatedAt).format("dddd, MMMM Do YYYY")} />
                                         }
                                         {data?.details?.received && !data?.details?.review && (
-                                            <div className='flex mt-2 items-center'>
+                                            <div className='flex mt-2 items-center justify-between'>
                                                 <h4 className='capitalize text-base font-normal text-gray-500 mr-5'>Add Rating</h4>
-                                                <button className='btn-blue' onClick={() => toggleReview()}>Add Review</button>
+                                                <button className='btn-blue rounded !py-2 !text-sm' onClick={() => toggleReview()}>Add Review</button>
                                             </div>
                                         )}
                                         <div className='overflow-x-auto mt-4'>
