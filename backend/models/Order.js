@@ -26,7 +26,11 @@ const orderSchema = Schema({
     received: { //-->Check customer naa order received kia ha ya nahi
         default: false,
         type: Boolean
-    }
+    },
+    review: { //-->Check customer naa order received kia ha ya nahi
+        default: false,
+        type: Boolean
+    },
 }, { timestamps: true }
 );
 module.exports = model('order', orderSchema);
