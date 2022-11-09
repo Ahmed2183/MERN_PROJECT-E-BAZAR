@@ -20,7 +20,7 @@ const UserOrders = () => {
     // console.log(user?.userdata?.id);
 
     const { data, isFetching } = useGetOrdersQuery({ page, userId: user?.userdata?.id });
-    console.log(data)
+    // console.log(data)
 
     const [updateOrder] = useReceivedOrderMutation();
 
