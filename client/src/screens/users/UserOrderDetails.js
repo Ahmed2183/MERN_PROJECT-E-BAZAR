@@ -8,19 +8,28 @@ import AccountList from '../../components/home/AccountList';
 import { useDetailsQuery } from '../../store/services/userOrdersServices';
 import Spinner from '../../components/Spinner';
 import { discount } from '../../utils/discount';
+import ReviewForm from '../../components/ReviewForm';
+import { useState } from 'react';
 
 const UserOrderDetails = () => {
 
     const navigate = useNavigate();
     const { id } = useParams();  //-->Send id to url
     const { data, isFetching } = useDetailsQuery(id);
-    // console.log(data);
+    // console.log("Orders",data);
+
+    const [state, setState] = useState(false);
+
+    const toggleReview = () => {
+        setState(!state);
+    }
 
     const total = currency.format(discount(data?.details?.productId?.price, data?.details?.productId?.discount) * data?.details?.quantities,
         { code: "USD" }); //Quantities multiply by price
 
     return (
         <>
+            <ReviewForm state={state} data={data} toggleReview={toggleReview} />
             <Nav />
             <div className='mt-[70px]'>
                 <Header>
@@ -65,6 +74,12 @@ const UserOrderDetails = () => {
                                                 <span className='ml-2 font-medium text-black capitalize'>{moment(data?.details?.updatedAt).format("dddd, MMMM Do YYYY")}</span>
                                             </div>
                                         }
+                                        {data?.details?.received && !data?.details?.review && (
+                                            <div className='flex mt-2 items-center'>
+                                                <h4 className='capitalize text-base font-normal text-gray-500 mr-5'>Add Rating</h4>
+                                                <button className='btn-blue' onClick={() => toggleReview()}>Add Review</button>
+                                            </div>
+                                        )}
                                         <div className='overflow-x-auto mt-4'>
                                             <table className='w-full'>
                                                 <thead>
