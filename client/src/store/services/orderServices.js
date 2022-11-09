@@ -51,10 +51,21 @@ const orderServices = createApi({
                 invalidatesTags: ['orders'] //-->To refetch data again
             }),
 
+            postReview: builder.mutation({
+                query: (body) => {
+                    return {
+                        url: `/add-review`,
+                        method: 'POST',
+                        body,
+                    }
+                },
+                invalidatesTags: ['orders']
+            }),
+
         }
     }
 })
 
-export const { useGetOrdersQuery, useDetailsQuery, useDeliverOrderMutation } = orderServices;
+export const { useGetOrdersQuery, useDetailsQuery, useDeliverOrderMutation, usePostReviewMutation } = orderServices;
 
 export default orderServices;
