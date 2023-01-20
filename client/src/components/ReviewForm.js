@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useForm } from '../hooks/Form';
 import { usePostReviewMutation } from '../store/services/userOrdersServices';
 import toast, { Toaster } from 'react-hot-toast';
+import swal from 'sweetalert'; //For alert box
 
 
 const ReviewForm = ({ state, data, toggleReview }) => {
@@ -18,6 +19,9 @@ const ReviewForm = ({ state, data, toggleReview }) => {
     const addReview = (e) => {
         e.preventDefault();
         submitReview({ ...ratingState, user: data?.details?.userId?._id, product: data?.details?.productId?._id, id: data?.details?._id });
+        if(ratingState.rating != ""){
+            swal("Good job!", "Review Added!", "success");
+        }
     }
 
     useEffect(() => {
