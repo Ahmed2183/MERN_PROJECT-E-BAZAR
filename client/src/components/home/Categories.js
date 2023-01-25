@@ -13,7 +13,7 @@ const Categories = () => {
 
     return isFetching ?
         <div className="flex flex-wrap -mx-4 mb-10">
-            {[1, 2, 3, 4, 5, 6].map((item) => (
+            {[1, 2, 3, 4, 5, 6, 7].map((item) => (
                 <div className='w-6/12 sm:w-4/12 md:w-3/12 lg:w-[20%] xl:w-2/12 p-4' key={item}>
                     <Skeleton>
                         <Thumbnail height="150px"/>
@@ -42,7 +42,7 @@ const Categories = () => {
             }}
         >
             {data.categories.map((category, index) => {
-                if (i >= 6) { //If categories greater than 5 then show images from 1 again
+                if (i >= 7) { //If categories greater than 5 then show images from 1 again
                     i = 1;
                 }
                 else {
